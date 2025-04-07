@@ -21,7 +21,7 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await apiService.login({ email, password });
+      await apiService.login({ email, password });
       login(email, password);
       navigate('/');
     } catch (err: any) {

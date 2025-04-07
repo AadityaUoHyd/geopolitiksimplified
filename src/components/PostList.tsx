@@ -27,9 +27,7 @@ const PostList: React.FC<PostListProps> = ({
   loading,
   error,
   page,
-  sortBy,
   onPageChange,
-  onSortChange,
 }) => {
   const navigate = useNavigate();
 

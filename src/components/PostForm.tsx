@@ -7,7 +7,6 @@ import {
   Select,
   SelectItem,
   Chip,
-  SelectSection,
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
@@ -141,11 +140,6 @@ const PostForm: React.FC<PostFormProps> = ({
     });
   };
 
-  const handleTagAdd = (tag: Tag) => {
-    if (tag && !selectedTags.includes(tag) && selectedTags.length < 10) {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
 
   const handleTagRemove = (tagToRemove: Tag) => {
     setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove));
@@ -155,9 +149,7 @@ const PostForm: React.FC<PostFormProps> = ({
     editor?.chain().focus().toggleHeading({ level: level as any }).run();
   };
 
-  const suggestedTags = availableTags
-    .filter(tag => !selectedTags.includes(tag))
-    .slice(0, 5);
+  // Removed unused suggestedTags variable
 
   const handleImageUpload = (url: string) => {
     setImageUrl(url);

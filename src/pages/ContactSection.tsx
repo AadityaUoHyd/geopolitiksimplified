@@ -1,4 +1,3 @@
-import React from "react";
 import { MapPin } from "lucide-react";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
 

@@ -3,8 +3,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Tabs,
-  Tab,
 } from '@nextui-org/react';
 import { apiService, Post, Category, Tag } from '../services/apiService';
 import PostList from '../components/PostList';

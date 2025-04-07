@@ -27,12 +27,10 @@ import FacebookComments from '../components/FacebookComments';
 
 interface PostPageProps {
   isAuthenticated?: boolean;
-  currentUserId?: string;
 }
 
 const PostPage: React.FC<PostPageProps> = ({
-  isAuthenticated,
-  currentUserId
+  isAuthenticated
 }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
