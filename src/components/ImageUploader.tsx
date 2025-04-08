@@ -24,7 +24,11 @@ const ImageUploader = ({ onUpload }: { onUpload: (url: string) => void }) => {
     formData.append("file", file);
 
     try {
-      const res = await axios.post("/api/v1/posts/images/upload", formData, {
+      const baseURL =
+      import.meta.env.MODE === 'development'
+        ? '/api/v1' // use Vite proxy in dev
+        : import.meta.env.VITE_BACKEND_URL; // full backend URL in prod
+      const res = await axios.post(`${baseURL}/posts/images/upload`, formData, {
         headers: { 
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
