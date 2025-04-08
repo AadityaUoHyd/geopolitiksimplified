@@ -73,14 +73,18 @@ class ApiService {
   private static instance: ApiService;
 
   private constructor() {
+    const baseURL =
+      import.meta.env.MODE === 'development'
+        ? '/api/v1' // use Vite proxy in dev
+        : import.meta.env.VITE_BACKEND_URL; // full backend URL in prod
+
     this.api = axios.create({
-      baseURL: import.meta.env.VITE_BACKEND_URL || '/api/v1',
+      baseURL,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
 
-    
 
     // Add request interceptor for authentication
     this.api.interceptors.request.use(
