@@ -57,7 +57,7 @@ const Footer = () => {
         <a href="https://facebook.com/aaditya" target="_blank" rel="noopener noreferrer">
           <Facebook className="w-5 h-5 hover:text-white" />
         </a>
-        <a href="https://instagram.com/itsaadityaofficial" target="_blank" rel="noopener noreferrer">
+        <a href="https://instagram.com/geopolitiksimplified/" target="_blank" rel="noopener noreferrer">
           <Instagram className="w-5 h-5 hover:text-white" />
         </a>
       </div>

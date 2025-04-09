@@ -11,13 +11,17 @@ import LoginPage from "./pages/LoginPage";
 import { AuthProvider, useAuth } from "./components/AuthContext";
 
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import Footer from "./pages/Footer";
+import SearchResults from "./components/SearchResults";
+import AdminDashboard from "./components/AdminDashboard";
+import { useEffect } from "react";
 
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
-  
+
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
@@ -28,51 +32,75 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 function AppContent() {
   const { isAuthenticated, logout, user } = useAuth();
 
+  useEffect(() => {
+    fetch('/api/v1/visitors/track', { method: 'POST' });
+  }, []);
+
+
   return (
     <BrowserRouter>
-      <NavBar 
-        isAuthenticated={isAuthenticated}
-        userProfile={user ? {
-          name: user.name,
-          avatar: undefined // Add avatar support if needed
-        } : undefined}
-        onLogout={logout}
-      />
-      <main className="container mx-auto">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route 
-            path="/posts/new" 
-            element={
-              <ProtectedRoute>
-                <EditPostPage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/posts/:id" element={<PostPage isAuthenticated={isAuthenticated}/>} />
-          <Route 
-            path="/posts/:id/edit" 
-            element={
-              <ProtectedRoute>
-                <EditPostPage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/categories" element={<CategoriesPage isAuthenticated={isAuthenticated}/>} />
-          <Route path="/tags" element={<TagsPage isAuthenticated={isAuthenticated}/>} />
-          <Route 
-            path="/posts/drafts" 
-            element={
-              <ProtectedRoute>
-                <DraftsPage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/about" element={<AboutPage />} />
-        </Routes>
-      </main>
-      <Footer />
+      {/* Full-height layout wrapper */}
+      <div className="min-h-screen flex flex-col">
+        <NavBar
+          isAuthenticated={isAuthenticated}
+          userProfile={user ? {
+            name: user.name,
+            avatar: undefined
+          } : undefined}
+          onLogout={logout}
+        />
+
+        {/* Main content area should grow to push footer down */}
+        <main className="flex-grow container mx-auto">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/posts/new"
+              element={
+                <ProtectedRoute>
+                  <EditPostPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/posts/:id" element={<PostPage isAuthenticated={isAuthenticated} />} />
+            <Route
+              path="/posts/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <EditPostPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/categories" element={<CategoriesPage isAuthenticated={isAuthenticated} />} />
+            <Route path="/tags" element={<TagsPage isAuthenticated={isAuthenticated} />} />
+            <Route
+              path="/posts/drafts"
+              element={
+                <ProtectedRoute>
+                  <DraftsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/search" element={<SearchResults />} />
+
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+
+          </Routes>
+        </main>
+
+        {/* Footer always at the bottom */}
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }

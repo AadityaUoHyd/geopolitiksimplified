@@ -33,12 +33,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-gray-900 via-gray-600 to-gray-900 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-gray-900 via-blue-900 to-gray-900 px-4">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-xl space-y-6 border border-white/20">
         
         {/* Header */}
         <div>
-          <h2 className="text-center text-4xl font-extrabold bg-gradient-to-r from-purple-500 via-white to-blue-500 text-transparent bg-clip-text transition-all">
+          <h2 className="text-center text-4xl font-extrabold bg-gradient-to-r from-purple-600 via-white to-blue-600 text-transparent bg-clip-text transition-all">
             Admin Login
           </h2>
           <p className="text-center text-sm text-white/70 mt-2">

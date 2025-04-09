@@ -1,77 +1,99 @@
+// AboutPage.tsx
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
-import { Mail, Phone } from "lucide-react";
-import ContactSection from "./ContactSection";
 import aadiImage from "../assets/aadi.jpg";
 
 const AboutPage = () => {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6">
-      <Card className="shadow-xl rounded-2xl">
-        <CardHeader className="px-6 py-4 border-b border-gray-200">
-          <div className="flex items-center gap-4">
+    <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <Card className="shadow-2xl rounded-3xl bg-gradient-to-br from-white to-gray-50">
+        <CardHeader className="px-8 py-6 border-b border-gray-200/50">
+          <div className="flex items-center gap-5">
             <img
               src={aadiImage}
               alt="Aaditya B Chatterjee"
-              className="w-12 h-12 object-cover rounded-full border border-gray-300 shadow-md"
+              className="w-14 h-14 object-cover rounded-full border-2 border-white shadow-lg"
             />
-            <h1 className="text-3xl font-bold text-gray-800">About Me</h1>
+            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              About Me
+            </h1>
           </div>
-
         </CardHeader>
 
-        <CardBody className="px-6 py-4 space-y-4 text-gray-700 leading-relaxed text-base">
-          {/* Bio */}
-          <p>
-            Hey there! 👋 I’m <strong>Aaditya B Chatterjee</strong>. I completed my{" "}
-            <strong>Masters in Computer Science (MCA)</strong> in 2014 from the{" "}
-            <strong>University of Hyderabad</strong>.
-          </p>
-          <p>
-            I’m a passionate full-stack developer who loves building applications with
-            <strong> Java</strong>, <strong>Spring Boot</strong>, <strong>Python</strong>, <strong>Django</strong> and modern JavaScript frameworks like <strong>Angular</strong>, <strong>React</strong>, <strong>Next.js</strong> and <strong>Node & Express Js</strong>. I also enjoy diving into <strong>DevOps</strong> tools like AWS Cloud, Docker, Render, K8s, Terraform, Jenkins, and Keycloak. Recently, dived into <strong>Machine Learning</strong> as well.
-          </p>
-          <p>
-            I also have solid experience working in the corporate IT sector, where I’ve contributed to building and maintaining robust, enterprise-grade web applications. Over the years, I've collaborated with cross-functional teams, led module-level designs, and worked with clients to deliver high-quality solutions that align with business goals.
+        <CardBody className="px-8 py-6 space-y-6 text-gray-700 leading-relaxed text-base font-sans">
+          <p className="text-lg text-gray-800">
+            👋 Hey there! I'm <strong className="text-blue-600">Aaditya B Chatterjee</strong>, 
+            an <strong className="text-purple-600">MCA graduate</strong> from the prestigious{" "}
+            <strong className="text-blue-600">University of Hyderabad</strong> (2011-14).
           </p>
 
-          <p>
-            When I’m not coding, you can catch me playing <strong>cricket</strong>, smashing it at <strong>badminton</strong>, or cheering on my niece's <strong>Singing performances</strong>. 🎭🏸
-          </p>
-          <p>
-            I built this site to share knowledge, simplify my workflows, and build better world, together.
-          </p>
+          <div className="space-y-4">
+            <div className="bg-blue-50 p-4 rounded-xl">
+              <h2 className="text-xl font-semibold text-blue-800 mb-3">🚀 Tech Expertise</h2>
+              <p className="text-gray-700">
+                Full-stack developer passionate about building with:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-500">▹</span>
+                  Java, Spring Boot, Python, Django
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-500">▹</span>
+                  Angular, React, Next.js, Node/Express
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-500">▹</span>
+                  AWS, Docker, K8s, Terraform, Jenkins, Ansible
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-500">▹</span>
+                  Machine Learning & AI enthusiast
+                </div>
+              </div>
+            </div>
 
-          <p className="italic text-sm text-gray-500">"For most of the problem exists in the world, I prefer - Simplify. Understand. Debug. Refactor. Repeat. 🚀"</p>
+            <div className="bg-purple-50 p-4 rounded-xl">
+              <h2 className="text-xl font-semibold text-purple-800 mb-3">💼 Professional Journey</h2>
+              <p className="text-gray-700">
+                Seasoned in corporate IT with experience in:
+              </p>
+              <ul className="list-disc pl-5 space-y-2 mt-2">
+                <li>Enterprise web application development</li>
+                <li>Cross-functional team leadership</li>
+                <li>Client-focused solution delivery</li>
+                <li>Module-level system design</li>
+              </ul>
+            </div>
 
-          {/* 💡 Contact Me + Image Section in Flexbox */}
-          <div className="pt-6 border-t border-gray-200">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-              {/* Left: Contact Info */}
-              <div className="flex-1 pr-4">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">📬 Contact Me</h2>
-                <ul className="space-y-3 text-base text-gray-700">
-                  <li className="flex items-center gap-2">
-                    <Mail size={18} />
-                    <span>
-                      Email:{" "}
-                      <a
-                        href="mailto:aaditya.dev@gmail.com"
-                        className="text-blue-600 hover:underline"
-                      >
-                        aadityabchatterjee@geopolitiksimplified.com
-                      </a>
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Phone size={18} />
-                    <span>Mobile: +91 0000000000</span>
-                  </li>
-                </ul>
+            <div className="bg-green-50 p-4 rounded-xl">
+              <h2 className="text-xl font-semibold text-green-800 mb-3">🎯 Beyond Code</h2>
+              <div className="flex flex-wrap gap-3">
+                <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full shadow-sm">
+                  <span aria-hidden="true">📖</span> Reading Books
+                </span>
+                <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full shadow-sm">
+                  <span aria-hidden="true">🏏</span> Cricket
+                </span>
+                <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full shadow-sm">
+                  <span aria-hidden="true">🏸</span> Badminton
+                </span>
+                <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full shadow-sm">
+                  <span aria-hidden="true">🎭</span> International Affarirs.
+                </span>
               </div>
             </div>
           </div>
 
-          <ContactSection />
+          <blockquote className="border-l-4 border-blue-500 pl-4 text-gray-600 italic bg-blue-50 p-4 rounded-lg">
+            "For most problems in the world, I prefer - 
+            <br />
+            <strong className="not-italic text-blue-600">Simplify → Understand → Debug → Refactor → Repeat</strong> 🚀"
+          </blockquote>
+
+          <p className="text-center text-gray-600 mt-6">
+            Built this platform to share knowledge, streamline workflows, 
+            and collaborate on building a better digital world 🌍
+          </p>
         </CardBody>
       </Card>
     </div>

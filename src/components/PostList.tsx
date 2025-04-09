@@ -20,6 +20,8 @@ interface PostListProps {
   sortBy: string;
   onPageChange: (page: number) => void;
   onSortChange: (sortBy: string) => void;
+  totalPages?: number;
+
 }
 
 const PostList: React.FC<PostListProps> = ({
@@ -61,7 +63,7 @@ const PostList: React.FC<PostListProps> = ({
     navigate(`/posts/${post.id}`);
   };
 
-  // ✅ Sort & Paginate
+  // Sort & Paginate
   const sortedPosts = posts
     ? [...posts].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     : [];
@@ -159,7 +161,7 @@ const PostList: React.FC<PostListProps> = ({
             ))}
           </div>
 
-          {/* ✅ Pagination Component */}
+          {/* Pagination Component */}
           {totalPages > 1 && (
             <div className="flex justify-center mt-6">
               <Pagination
