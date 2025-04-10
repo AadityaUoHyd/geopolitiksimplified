@@ -98,11 +98,17 @@ const PostPage: React.FC<PostPageProps> = ({
   const createSanitizedHTML = (content: string) => {
     return {
       __html: DOMPurify.sanitize(content, {
-        ALLOWED_TAGS: ['p', 'strong', 'em', 'br'],
-        ALLOWED_ATTR: []
-      })
+        ALLOWED_TAGS: [
+          'p', 'strong', 'em', 'br', 'ul', 'li', 'ol', 'a', 'blockquote',
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'code'
+        ],
+        ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'style']
+      }),
     };
   };
+  
+  
+  
 
   if (loading) {
     return (
@@ -236,9 +242,12 @@ const PostPage: React.FC<PostPageProps> = ({
           />
         )}
 
-        <CardBody className="prose dark:prose-invert max-w-none text-base leading-relaxed px-6 py-8">
-          <div dangerouslySetInnerHTML={createSanitizedHTML(post.content)} />
-        </CardBody>
+<CardBody className="prose dark:prose-invert max-w-none text-base leading-relaxed px-6 py-8">
+  <div
+    dangerouslySetInnerHTML={createSanitizedHTML(post.content)}
+  />
+</CardBody>
+
 
         <CardFooter className="flex flex-col items-start gap-4 px-6 py-4">
           <Divider />

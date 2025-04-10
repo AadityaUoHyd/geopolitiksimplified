@@ -29,10 +29,9 @@ const Footer = () => {
         Quick Links
       </h4>
       <div className="flex gap-4 text-gray-400 max-w-xs text-sm flex-wrap">
-        <Link to="/" className="hover:text-white">Home</Link>
-        <Link to="/categories" className="hover:text-white">Categories</Link>
-        <Link to="/tags" className="hover:text-white">Tags</Link>
+        <Link to="/" className="hover:text-white">Home</Link>        
         <Link to="/about" className="hover:text-white">About</Link>
+        <Link to="/contact" className="hover:text-white">Contact</Link>
       </div>
     </div>
 
