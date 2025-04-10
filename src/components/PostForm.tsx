@@ -325,21 +325,46 @@ const PostForm: React.FC<PostFormProps> = ({
               <div className="h-6 w-px bg-default-300 mx-2" />
 
               <input type="color"
-                onChange={(e) => editor?.chain().focus().setColor(e.target.value).run()} />
+                onChange={(e) => {
+                  e.preventDefault();
+                  editor?.chain().focus().setColor(e.target.value).run();
+                }} />
 
 
-  <button onClick={() => editor?.chain().focus().setColor('#FF0000').run()}>
-    🔴
-  </button>
-  <button onClick={() => editor?.chain().focus().setColor('#0000FF').run()}>
-    🔵 
-  </button>
-  <button onClick={() => editor?.chain().focus().setColor('#008000').run()}>
-    🟢
-  </button>
-  <button onClick={() => editor?.chain().focus().setColor('#808080').run()}>
-    🟤
-  </button>
+              <button onClick={(e) => {
+                e.preventDefault();
+                editor?.chain().focus().setColor('red').run();
+              }}>
+                🔴
+              </button>
+
+              <button onClick={(e) => {
+                e.preventDefault();
+                editor?.chain().focus().setColor('blue').run();
+              }}>
+                🔵
+              </button>
+
+              <button onClick={(e) => {
+                e.preventDefault();
+                editor?.chain().focus().setColor('gray').run();
+              }}>
+                🟤
+              </button>
+
+              <button onClick={(e) => {
+                e.preventDefault();
+                editor?.chain().focus().setColor('teal').run();
+              }}>
+                <span style={{ display: 'inline-block', width: '1em', height: '1em', borderRadius: '50%', backgroundColor: 'teal' }} />
+              </button>
+                <button onClick={(e) => {
+                e.preventDefault();
+                editor?.chain().focus().unsetColor().run();
+                }}>
+                ❌
+                </button>
+
 
               <Button onClick={() => editor?.chain().focus().toggleCodeBlock().run()}>
                 CodeBlock
@@ -393,6 +418,19 @@ const PostForm: React.FC<PostFormProps> = ({
                   <DropdownItem key="📦">📦 Package</DropdownItem>
                   <DropdownItem key="✔️">✔️ Check</DropdownItem>
                   <DropdownItem key="➤">➤ Arrow</DropdownItem>
+                  <DropdownItem key="😀">😀 Grinning Face</DropdownItem>
+                  <DropdownItem key="😂">😂 Tears of Joy</DropdownItem>
+                  <DropdownItem key="😍">😍 Smiling Heart-Eyes</DropdownItem>
+                  <DropdownItem key="🤔">🤔 Thinking Face</DropdownItem>
+                  <DropdownItem key="😎">😎 Smiling Sunglasses</DropdownItem>
+                  <DropdownItem key="🔥">🔥 Fire</DropdownItem>
+                  <DropdownItem key="💔">💔 Broken Heart</DropdownItem>
+                  <DropdownItem key="🎈">🎈 Balloon</DropdownItem>
+                  <DropdownItem key="🌟">🌟 Glowing Star</DropdownItem>
+                  <DropdownItem key="🌈">🌈 Rainbow</DropdownItem>
+                  <DropdownItem key="🍀">🍀 Leaf Clover</DropdownItem>
+                  <DropdownItem key="🌍">🌍 Earth</DropdownItem>
+                  <DropdownItem key="⚡">⚡ Lightning</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
 
