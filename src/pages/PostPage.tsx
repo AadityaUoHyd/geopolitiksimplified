@@ -95,20 +95,41 @@ const PostPage: React.FC<PostPageProps> = ({
     });
   };
 
+  DOMPurify.addHook('uponSanitizeAttribute', (_, data) => {
+    if (data.attrName === 'style') {
+      const allowedStyles = ['color', 'background', 'border', 'padding', 'border-radius'];
+      const sanitizedStyles = data.attrValue
+        .split(';')
+        .map(style => {
+          const [prop, value] = style.split(':').map(s => s.trim());
+          if (allowedStyles.includes(prop)) {
+            return `${prop}: ${value}`;
+          }
+          return '';
+        })
+        .filter(Boolean)
+        .join('; ');
+
+      data.attrValue = sanitizedStyles;
+    }
+  });
+
+
   const createSanitizedHTML = (content: string) => {
     return {
       __html: DOMPurify.sanitize(content, {
         ALLOWED_TAGS: [
           'p', 'strong', 'em', 'br', 'ul', 'li', 'ol', 'a', 'blockquote',
-          'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'code'
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'code', 'span', 'img', 'hr', 'div'
         ],
-        ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'style']
+        ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'style', 'data-box', 'src'],
+        //ALLOWED_CSS_PROPERTIES: ['color', 'border', 'padding', 'background', 'border-radius']
       }),
     };
   };
-  
-  
-  
+
+
+
 
   if (loading) {
     return (
@@ -242,11 +263,11 @@ const PostPage: React.FC<PostPageProps> = ({
           />
         )}
 
-<CardBody className="prose dark:prose-invert max-w-none text-base leading-relaxed px-6 py-8">
-  <div
-    dangerouslySetInnerHTML={createSanitizedHTML(post.content)}
-  />
-</CardBody>
+        <CardBody className="prose dark:prose-invert max-w-none text-base leading-relaxed px-6 py-8">
+          <div
+            dangerouslySetInnerHTML={createSanitizedHTML(post.content)}
+          />
+        </CardBody>
 
 
         <CardFooter className="flex flex-col items-start gap-4 px-6 py-4">

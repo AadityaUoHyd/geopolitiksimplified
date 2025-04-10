@@ -18,6 +18,11 @@ import Heading from '@tiptap/extension-heading';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
+import Image from '@tiptap/extension-image';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import TextStyle from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
+import TextAlign from '@tiptap/extension-text-align'; // Import TextAlign extension
 import {
   Bold,
   Italic,
@@ -26,7 +31,11 @@ import {
   List,
   ListOrdered,
   ChevronDown,
-  X
+  X,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
 } from 'lucide-react';
 import { Post, Category, Tag, PostStatus } from '../services/apiService';
 import ImageUploader from './ImageUploader';
@@ -67,9 +76,9 @@ const PostForm: React.FC<PostFormProps> = ({
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        heading: false, // Disable default heading to use our custom config
-        bulletList: false, // Disable default list to use our custom config
-        orderedList: false, // Disable default list to use our custom config
+        heading: false,
+        bulletList: false,
+        orderedList: false,
       }),
       Heading.configure({
         levels: [1, 2, 3],
@@ -83,6 +92,13 @@ const PostForm: React.FC<PostFormProps> = ({
         keepAttributes: false,
       }),
       ListItem,
+      Image,
+      HorizontalRule,
+      TextStyle,
+      Color.configure({ types: ['textStyle'] }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }), // Configure TextAlign extension
     ],
     content: initialPost?.content || '',
     editorProps: {
@@ -140,7 +156,6 @@ const PostForm: React.FC<PostFormProps> = ({
     });
   };
 
-
   const handleTagRemove = (tagToRemove: Tag) => {
     setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove));
   };
@@ -148,8 +163,6 @@ const PostForm: React.FC<PostFormProps> = ({
   const handleHeadingSelect = (level: number) => {
     editor?.chain().focus().toggleHeading({ level: level as any }).run();
   };
-
-  // Removed unused suggestedTags variable
 
   const handleImageUpload = (url: string) => {
     setImageUrl(url);
@@ -227,6 +240,7 @@ const PostForm: React.FC<PostFormProps> = ({
                 <Italic size={16} />
               </Button>
 
+
               <div className="h-6 w-px bg-default-300 mx-2" />
 
               <Button
@@ -254,6 +268,45 @@ const PostForm: React.FC<PostFormProps> = ({
                 size="sm"
                 isIconOnly
                 variant="flat"
+                onClick={() => editor?.chain().focus().setTextAlign('left').run()}
+                className={editor?.isActive({ textAlign: 'left' }) ? 'bg-default-200' : ''}
+              >
+                <AlignLeft size={16} />
+              </Button>
+              <Button
+                size="sm"
+                isIconOnly
+                variant="flat"
+                onClick={() => editor?.chain().focus().setTextAlign('center').run()}
+                className={editor?.isActive({ textAlign: 'center' }) ? 'bg-default-200' : ''}
+              >
+                <AlignCenter size={16} />
+              </Button>
+              <Button
+                size="sm"
+                isIconOnly
+                variant="flat"
+                onClick={() => editor?.chain().focus().setTextAlign('right').run()}
+                className={editor?.isActive({ textAlign: 'right' }) ? 'bg-default-200' : ''}
+              >
+                <AlignRight size={16} />
+              </Button>
+              <Button
+                size="sm"
+                isIconOnly
+                variant="flat"
+                onClick={() => editor?.chain().focus().setTextAlign('justify').run()}
+                className={editor?.isActive({ textAlign: 'justify' }) ? 'bg-default-200' : ''}
+              >
+                <AlignJustify size={16} />
+              </Button>
+
+              <div className="h-6 w-px bg-default-300 mx-2" />
+
+              <Button
+                size="sm"
+                isIconOnly
+                variant="flat"
                 onClick={() => editor?.chain().focus().undo().run()}
                 isDisabled={!editor?.can().undo()}
               >
@@ -268,8 +321,85 @@ const PostForm: React.FC<PostFormProps> = ({
               >
                 <Redo size={16} />
               </Button>
+
+              <div className="h-6 w-px bg-default-300 mx-2" />
+
+              <input type="color"
+                onChange={(e) => editor?.chain().focus().setColor(e.target.value).run()} />
+
+
+  <button onClick={() => editor?.chain().focus().setColor('#FF0000').run()}>
+    🔴
+  </button>
+  <button onClick={() => editor?.chain().focus().setColor('#0000FF').run()}>
+    🔵 
+  </button>
+  <button onClick={() => editor?.chain().focus().setColor('#008000').run()}>
+    🟢
+  </button>
+  <button onClick={() => editor?.chain().focus().setColor('#808080').run()}>
+    🟤
+  </button>
+
+              <Button onClick={() => editor?.chain().focus().toggleCodeBlock().run()}>
+                CodeBlock
+              </Button>
+
+              <Button onClick={() => editor?.chain().focus().setStrike().run()}>
+                Strike
+              </Button>
+
+              <Button onClick={() => editor?.chain().focus().setCode().run()}>
+                Code
+              </Button>
+
+              <Button onClick={() => editor?.chain().focus().setHorizontalRule().run()}>
+                ➖ Line
+              </Button>
+
+              <Button onClick={() => editor?.chain().focus().setBlockquote().run()}>
+                ❝ Quote
+              </Button>
+
+              <Button onClick={() => editor?.chain().focus().setParagraph().run()}>
+                ¶ Paragraph
+              </Button>
+
+              <Button onClick={() => {
+                const url = prompt('Image URL');
+                if (url) editor?.chain().focus().setImage({ src: url }).run();
+              }}>
+                🖼️ Image
+              </Button>
+
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button variant="flat" size="sm" endContent={<ChevronDown size={16} />}>
+                    😊 Emojis
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Emoji Picker"
+                  onAction={(key) => {
+                    editor?.chain().focus().insertContent(key as string).run();
+                  }}
+                >
+                  <DropdownItem key="❤️">❤️ Heart</DropdownItem>
+                  <DropdownItem key="✨">✨ Sparkles</DropdownItem>
+                  <DropdownItem key="🔥">🔥 Fire</DropdownItem>
+                  <DropdownItem key="🚀">🚀 Rocket</DropdownItem>
+                  <DropdownItem key="💡">💡 Idea</DropdownItem>
+                  <DropdownItem key="🎉">🎉 Party</DropdownItem>
+                  <DropdownItem key="📦">📦 Package</DropdownItem>
+                  <DropdownItem key="✔️">✔️ Check</DropdownItem>
+                  <DropdownItem key="➤">➤ Arrow</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+
+
             </div>
             <EditorContent editor={editor} />
+
             {errors.content && (
               <div className="text-danger text-sm">{errors.content}</div>
             )}
@@ -293,7 +423,6 @@ const PostForm: React.FC<PostFormProps> = ({
           </div>
 
           <div className="space-y-2">
-
             <Select
               label="Add Tag"
               onChange={(e) => {
@@ -312,8 +441,6 @@ const PostForm: React.FC<PostFormProps> = ({
                 </SelectItem>
               ))}
             </Select>
-
-
 
             <div className="flex flex-wrap gap-2 mt-2">
               {selectedTags.map((tag) => (

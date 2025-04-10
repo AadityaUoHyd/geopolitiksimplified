@@ -7,6 +7,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
+  safelist: [
+    'text-red-500',
+    'bg-blue-300',
+    'hover:underline',
+    // Add other dynamic classes here
+  ],
   theme: {
     extend: {},
   },
